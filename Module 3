@@ -1,0 +1,41 @@
+using System;
+
+public class Bunny
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public string Breed { get; set; }
+
+    public Bunny(string name, int age, string breed)
+    {
+        Name = name;
+        Age = age;
+        Breed = breed;
+    }
+
+    public virtual void Hop() => Console.WriteLine($"{Name} is hopping!");
+
+    // Display bunny info
+    public void DisplayInfo() => Console.WriteLine($"Name: {Name}, Age: {Age}, Breed: {Breed}");
+}
+
+public class MagicBunny : Bunny
+{
+    public MagicBunny(string name, int age) : base(name, age, "Magic Bunny") { }
+
+    public override void Hop() => Console.WriteLine($"{Name} hops and moves quickly!");
+}
+
+class Program
+{
+    static void Main()
+    {
+        var bunny = new Bunny("Snuggle", 2, "Bungs");
+        bunny.DisplayInfo();
+        bunny.Hop();
+
+        var magicBunny = new MagicBunny("Sparkle", 3);
+        magicBunny.DisplayInfo();
+        magicBunny.Hop(); // Overridden method
+    }
+}
