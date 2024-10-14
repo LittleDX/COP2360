@@ -37,6 +37,6 @@ class Program
 
         var magicBunny = new MagicBunny("Sparkle", 3);
         magicBunny.DisplayInfo();
-        magicBunny.Hop(); // Overridden method
+        magicBunny.Hop(); 
     }
 }
