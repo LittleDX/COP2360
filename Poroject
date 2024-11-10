@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class Program
 {
@@ -25,7 +26,59 @@ class Program
         }
     }
 
-    static void Main(string[] args)
+    static void RemoveKey()
+    {
+        Console.Write("Enter the key to remove: ");
+        string key = Console.ReadLine();
+        if (myDictionary.ContainsKey(key))
+        {
+            myDictionary.Remove(key);
+            Console.WriteLine($"Key '{key}' removed.");
+        }
+        else
+        {
+            Console.WriteLine($"Key '{key}' not found.");
+        }
+    }
+
+    static void AddNewKeyValue()
+    {
+        Console.Write("Enter the new key: ");
+        string key = Console.ReadLine();
+        Console.Write("Enter the values (comma-separated): ");
+        string valuesInput = Console.ReadLine();
+        var values = valuesInput.Split(',').Select(v => v.Trim()).ToList();
+        myDictionary[key] = values;
+        Console.WriteLine($"New key '{key}' added with values: {string.Join(", ", values)}");
+    }
+
+    static void AddValueToExistingKey()
+    {
+        Console.Write("Enter the key: ");
+        string key = Console.ReadLine();
+        if (myDictionary.ContainsKey(key))
+        {
+            Console.Write("Enter the new value to add: ");
+            string newValue = Console.ReadLine();
+            myDictionary[key].Add(newValue);
+            Console.WriteLine($"Value '{newValue}' added to key '{key}'.");
+        }
+        else
+        {
+            Console.WriteLine($"Key '{key}' not found.");
+        }
+    }
+
+    static void SortKeys()
+    {
+        Console.WriteLine("Sorted Keys:");
+        foreach (var key in myDictionary.Keys.OrderBy(k => k))
+        {
+            Console.WriteLine(key);
+        }
+    }
+
+    static void Main(String[] args)
     {
         // Keep running the program until user exits
         while (true)
@@ -38,25 +91,27 @@ class Program
             Console.WriteLine("e. Add a Value to an Existing Key");
             Console.WriteLine("f. Sort the Keys");
             Console.WriteLine("q. Quit");
-
             string choice = Console.ReadLine().ToLower();
 
             switch (choice)
             {
                 case "a":
                     PopulateDictionary();
-                    Console.WriteLine("Dictionary populated.");
                     break;
                 case "b":
                     DisplayDictionary();
                     break;
-                case "c": // Remove a Key
-                    Console.Write("Enter the key to remove: ");
-                    string keyToRemove = Console.ReadLine();
-                    if (myDictionary.Remove(keyToRemove))
-                        Console.WriteLine("Key removed.");
-                    else
-                        Console.WriteLine("Key not found.");
+                case "c":
+                    RemoveKey();
+                    break;
+                case "d":
+                    AddNewKeyValue();
+                    break;
+                case "e":
+                    AddValueToExistingKey();
+                    break;
+                case "f":
+                    SortKeys();
                     break;
                 case "q":
                     Console.WriteLine("Exiting...");
